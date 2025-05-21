@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Signature WebApp</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    textarea, input { width: 100%; padding: 10px; margin: 10px 0; }
+    button { padding: 10px 20px; }
+    pre { background: #f0f0f0; padding: 10px; }
+  </style>
+</head>
+<body>
+
+<h2>Digital Signature WebApp (ECDSA)</h2>
+
+<textarea id="message" placeholder="Enter your message here"></textarea>
+<button onclick="generateKeyPair()">Generate Key Pair</button>
+<button onclick="signMessage()">Sign Message</button>
+<button onclick="verifySignature()">Verify Signature</button>
+
+<h3>Public Key</h3>
+<pre id="publicKeyDisplay"></pre>
+
+<h3>Signature</h3>
+<pre id="signatureDisplay"></pre>
+
+<h3>Verification Result</h3>
+<p id="verificationResult"></p>
+
+<script>
+  let privateKey, publicKey, signature;
+
+  async function generateKeyPair() {
+    const keyPair = await window.crypto.subtle.generateKey(
+      {
+        name: "ECDSA",
+        namedCurve: "P-256",
+      },
+      true,
+      ["sign", "verify"]
+    );
+    privateKey = keyPair.privateKey;
+    publicKey = keyPair.publicKey;
+
+    const exported = await window.crypto.subtle.exportKey("spki", publicKey);
+    document.getElementById("publicKeyDisplay").textContent =
+      bufferToBase64(exported);
+  }
+
+  async function signMessage() {
+    const message = document.getElementById("message").value;
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+
+    signature = await window.crypto.subtle.sign(
+      {
+        name: "ECDSA",
+        hash: { name: "SHA-256" },
+      },
+      privateKey,
+      data
+    );
+
+    document.getElementById("signatureDisplay").textContent =
+      bufferToBase64(signature);
+  }
+
+  async function verifySignature() {
+    const message = document.getElementById("message").value;
+    const encoder = new TextEncoder();
+    const data = encoder.encode(message);
+
+    const isValid = await window.crypto.subtle.verify(
+      {
+        name: "ECDSA",
+        hash: { name: "SHA-256" },
+      },
+      publicKey,
+      signature,
+      data
+    );
+
+    document.getElementById("verificationResult").textContent = isValid
+      ? "✅ Signature is valid."
+      : "❌ Signature is invalid.";
+  }
+
+  function bufferToBase64(buffer) {
+    return btoa(String.fromCharCode(...new Uint8Array(buffer)));
+  }
+</script>
+
+</body>
+</html>
