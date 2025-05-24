@@ -33,7 +33,7 @@ A simple and educational web application to demonstrate **Digital Signature Algo
 - **🔐 Generate Keys**
 1. Go to the home page.
 2. Click "Generate Keys".
-3. You will receive:
+3. You will receive:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;A Private Key (used for signing)<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;A Public Key (used for verification)<br/>
 
@@ -45,7 +45,7 @@ A simple and educational web application to demonstrate **Digital Signature Algo
 
 - **✅ Verify a Signature**
 1. Go to the Verify Signature tab.
-2. Paste the:
+2. Paste the:<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Original message<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Signature<br/>
 &nbsp;&nbsp;&nbsp;&nbsp;Public key
