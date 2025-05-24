@@ -2,7 +2,7 @@
 
 A simple and educational web application to demonstrate **Digital Signature Algorithm (ECDSA)** using Python and JavaScript.
 
-🌐 **Try the program out at**: [https://sehaton.pythonanywhere.com/](https://sehaton.pythonanywhere.com/)
+🌐 **Try the program out at**: [Here](https://sehaton.pythonanywhere.com/)
 
 ---
 
