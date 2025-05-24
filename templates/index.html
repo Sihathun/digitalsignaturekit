@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Digital Signature - Key & Sign</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="topsect">
+    <h1>🔐 Digital Signature Generator</h1>
+  </div>
+  <div class="selection">
+      <a href="/">Sign Message</a>
+      <a href="/verify-tab">Verify Message</a>
+  </div>
+
+  <div class="SignaturePart">
+    <button onclick="generateKeys()">Generate Key Pair</button>
+    <h3>Public Key:</h3>
+    <textarea id="publicKey" readonly></textarea>
+    <h3>Private Key:</h3>
+    <textarea id="privateKey" readonly></textarea>
+
+    <h3>Message to Sign:</h3>
+    <textarea id="message" placeholder="Write your message..."></textarea>
+    <button onclick="signMessage()">Sign Message</button>
+
+    <h3>Generated Signature:</h3>
+    <pre id="signature"></pre>
+  </div>
+  <script>
+    async function generateKeys() {
+      const response = await fetch('/generate_keys');
+      const keys = await response.json();
+      document.getElementById('publicKey').value = keys.public_key;
+      document.getElementById('privateKey').value = keys.private_key;
+    }
+
+    async function signMessage() {
+      const message = document.getElementById('message').value;
+      const private_key = document.getElementById('privateKey').value;
+
+      const response = await fetch('/sign', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message, private_key })
+      });
+
+      const data = await response.json();
+      document.getElementById('signature').textContent = data.signature;
+    }
+  </script>
+</body>
+</html>

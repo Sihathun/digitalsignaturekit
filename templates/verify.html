@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Verify Signature</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="topsect"><h1>🕵️ Verify a Signature</h1></div>
+    <div class="selection">
+      <a href="/">Sign Message</a>
+      <a href="/verify">Verify Message</a>
+  </div>
+
+  <div class="SignaturePart">
+    <h3>Message:</h3>
+    <textarea id="v_message"></textarea>
+
+    <h3>Signature (hex):</h3>
+    <textarea id="v_signature"></textarea>
+
+    <h3>Public Key:</h3>
+    <textarea id="v_public_key"></textarea>
+
+    <button onclick="verifySignature()">Verify</button>
+
+    <h3>Verification Result:</h3>
+    <p id="v_result"></p>
+
+  </div>
+
+  <script>
+    async function verifySignature() {
+      const message = document.getElementById('v_message').value.trim();
+      const signature = document.getElementById('v_signature').value.trim();
+      const public_key = document.getElementById('v_public_key').value.trim();
+      const resultElement = document.getElementById('v_result');
+
+      // Clear previous result
+      resultElement.textContent = "⏳ Verifying...";
+
+      if (!message || !signature || !public_key) {
+        resultElement.textContent = "⚠️ Please fill in all fields.";
+        return;
+      }
+
+      try {
+        const response = await fetch('/verify', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ message, signature, public_key })
+        });
+
+        const data = await response.json();
+
+        if (data.valid) {
+          resultElement.textContent = "✅ Valid Signature!";
+          resultElement.style.color = "green";
+        } else {
+          resultElement.textContent = "❌ Invalid Signature!";
+          resultElement.style.color = "red";
+        }
+      } catch (error) {
+        resultElement.textContent = "❌ Error verifying signature.";
+        resultElement.style.color = "red";
+        console.error(error);
+      }
+    }
+  </script>
+
+</body>
+</html>
