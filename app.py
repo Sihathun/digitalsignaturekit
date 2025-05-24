@@ -5,17 +5,17 @@ from cryptography.exceptions import InvalidSignature
 
 app = Flask(__name__)
 
-# 🏠 Homepage (key generation + signing)
+#  Homepage (key generation + signing)
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# 🔍 Verification page
+#  Verification page
 @app.route('/verify-tab')
 def verify_tab():
     return render_template('verify.html')
 
-# 🔑 Generate a new key pair (private + public)
+#  Generate a new key pair (private + public)
 @app.route('/generate_keys')
 def generate_keys():
     # Create a private key (used for signing)
@@ -39,7 +39,7 @@ def generate_keys():
         'public_key': public_pem
     })
 
-# ✍️ Sign a message using private key
+#  Sign a message using private key
 @app.route('/sign', methods=['POST'])
 def sign_message():
     data = request.get_json()
@@ -61,7 +61,7 @@ def sign_message():
     # Send back the signature in hex format
     return jsonify({ 'signature': signature.hex() })
 
-# ✅ Verify the signature using the public key
+#  Verify the signature using the public key
 @app.route('/verify', methods=['POST'])
 def verify_signature():
     data = request.get_json()
@@ -83,6 +83,6 @@ def verify_signature():
     except InvalidSignature:
         return jsonify({ 'valid': False })
 
-# 🟢 Start the server
+#  Start the server
 if __name__ == '__main__':
     app.run(debug=True)
