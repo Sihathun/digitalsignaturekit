@@ -29,6 +29,32 @@ A simple and educational web application to demonstrate **Digital Signature Algo
 
 ---
 
+### 🧑‍🏫 How to Use
+- **🔐 Generate Keys**
+1. Go to the home page.
+2. Click "Generate Keys".
+3. You will receive:
+  - A Private Key (used for signing)
+  - A Public Key (used for verification)
+
+- **✍️ Sign a Message**
+1. Type a message into the message box.
+2. Paste your private key into the corresponding field.
+3. Click "Sign Message".
+4. The app will return a signature for that message.
+
+- **✅ Verify a Signature**
+1. Go to the Verify Signature tab.
+2. Paste the:
+  - Original message
+  - Signature
+  - Public key
+
+3. Click "Verify Signature".
+4. The app will confirm whether the signature is valid or not.
+
+---
+
 ## 📦 Python Libraries
 
 | Library        | Purpose                                  |
