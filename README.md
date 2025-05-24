@@ -34,8 +34,8 @@ A simple and educational web application to demonstrate **Digital Signature Algo
 1. Go to the home page.
 2. Click "Generate Keys".
 3. You will receive:
-&nbsp;&nbsp;&nbsp;&nbsp;- A Private Key (used for signing)
-&nbsp;&nbsp;&nbsp;&nbsp;- A Public Key (used for verification)
+  - A Private Key (used for signing)
+  - A Public Key (used for verification)
 
 - **✍️ Sign a Message**
 1. Type a message into the message box.
@@ -46,9 +46,9 @@ A simple and educational web application to demonstrate **Digital Signature Algo
 - **✅ Verify a Signature**
 1. Go to the Verify Signature tab.
 2. Paste the:
-&nbsp;&nbsp;&nbsp;&nbsp;- Original message
-&nbsp;&nbsp;&nbsp;&nbsp;- Signature
-&nbsp;&nbsp;&nbsp;&nbsp;- Public key
+  - Original message
+  - Signature
+  - Public key
 
 3. Click "Verify Signature".
 4. The app will confirm whether the signature is valid or not.
